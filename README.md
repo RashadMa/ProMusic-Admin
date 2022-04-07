@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React Admin Dashboard with Multiple Themes
 
     Build React Admin Dashboard with Multiple Themes | React Admin Panel CSS | ReactJS
@@ -25,3 +26,6 @@
 !["Build React Admin Dashboard with Multiple Themes | React Admin Panel CSS | ReactJS"](https://user-images.githubusercontent.com/67447840/124409129-ebada200-dd71-11eb-83a9-321edcc37aff.png "Build React Admin Dashboard with Multiple Themes | React Admin Panel CSS | ReactJS")
 
 !["Build React Admin Dashboard with Multiple Themes | React Admin Panel CSS | ReactJS"](https://user-images.githubusercontent.com/67447840/124409160-f9fbbe00-dd71-11eb-9169-493fc70c9240.png "Build React Admin Dashboard with Multiple Themes | React Admin Panel CSS | ReactJS")
+=======
+# ProMusic-Admin
+>>>>>>> c5031d8aeb98cb4eb807e1e878a42f4ddd2f214b
