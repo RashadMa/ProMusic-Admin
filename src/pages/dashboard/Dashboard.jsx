@@ -6,13 +6,14 @@ import Chart from 'react-apexcharts'
 
 import { useSelector } from 'react-redux'
 
-import StatusCard from '../components/status-card/StatusCard'
+// import StatusCard from '../../components/status-card/StatusCard'
+import StatusCard from '../../components/status-card/StatusCard'
 
-import Table from '../components/table/Table'
+import Table from '../../components/table/Table'
 
-import Badge from '../components/badge/Badge'
+import Badge from '../../components/badge/Badge'
 
-import statusCards from '../assets/JsonData/status-card-data.json'
+import statusCards from '../../assets/JsonData/status-card-data.json'
 
 const chartOptions = {
     series: [{
