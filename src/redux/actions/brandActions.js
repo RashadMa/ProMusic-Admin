@@ -51,3 +51,28 @@ export const postBrand = (brand) => (dispatch) => {
       })
       .catch((error) => console.log(error));
 };
+
+export const putBrand = (brand) => (dispatch) => {
+  let url = "https://localhost:5001/admin/api/Brands";
+  var formData = new FormData();
+  for (let property in brand) {
+    if(property == "image") {
+      formData.append("photo", brand[property])
+      break;
+    }
+    formData.append(property, brand[property])
+  }
+
+  axios
+      .put(`${url}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        dispatch(postBrandSuccess);
+        dispatch(getBrands);
+      })
+      .catch((error) => console.log(error));
+};

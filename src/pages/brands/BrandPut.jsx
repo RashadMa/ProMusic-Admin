@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { postBrand } from "../../redux/actions/brandActions";
 import { useHistory } from "react-router-dom";
 
-function BrandPost() {
+function BrandPut() {
   const [state, setState] = useState({
     name: "",
     desc: "",
@@ -39,7 +39,7 @@ function BrandPost() {
     <>
       <div>
         <h3 className="d-flex justify-content-center align-items-center mb-3">
-          Create
+          Edit
         </h3>
       </div>
       <Button onClick={() => history.push("/brands")} color="danger mb-4">
@@ -89,4 +89,4 @@ function BrandPost() {
   );
 }
 
-export default BrandPost;
+export default BrandPut;

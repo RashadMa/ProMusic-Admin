@@ -77,7 +77,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link  className="none" to={"/brands"}>
+      <Link  className="none" to={"/"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
@@ -85,7 +85,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link  className="none" to={"/brands"}>
+      <Link  className="none" to={"/"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
@@ -93,7 +93,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link  className="none" to={"/brands"}>
+      <Link  className="none" to={"/"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
@@ -101,7 +101,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link className="none" to={"/brands"}>
+      <Link className="none" to={"/"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
@@ -109,7 +109,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link className="none" to={"/brands"}>
+      <Link className="none" to={"/"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>

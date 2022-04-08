@@ -42,15 +42,19 @@ function Brands() {
               <td>{item.name}</td>
               <td className="desc">{item.desc}</td>
               <td className="image-cont">
-              <img
-              className="imaqe"
-              src={"https://localhost:5001/images/brands/" + item.image}
-              alt=""
-            /></td>
+                <img
+                  className="imaqe"
+                  src={"https://localhost:5001/images/brands/" + item.image}
+                  alt=""
+                />
+              </td>
               <td>
-                <a className="btn btn-warning" href="/">
+                <Button
+                  onClick={() => history.push(`/putbrand/${item.id}`)}
+                  color="warning"
+                >
                   Edit
-                </a>
+                </Button>
               </td>
               <td>
                 <Button
