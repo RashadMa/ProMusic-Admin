@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
 import { getBrands } from "../../redux/actions/brandActions";
 import { deleteBrands } from "../../redux/actions/brandActions";
@@ -9,15 +10,20 @@ import "../hey.css";
 function Brands() {
   const { items } = useSelector((state) => state.brandListReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
   React.useEffect(() => {
     getBrands()(dispatch);
   }, [dispatch]);
 
   return (
     <>
-      <a class="btn btn-primary mb-4" href="/">
+      <Button
+        onClick={() => history.push("/postbrand")}
+        color="primary"
+        className="mb-4"
+      >
         Create
-      </a>
+      </Button>
       <Table hover dark>
         <thead>
           <tr>
@@ -35,14 +41,22 @@ function Brands() {
               <th scope="row">{item.id}</th>
               <td>{item.name}</td>
               <td className="desc">{item.desc}</td>
-              <td>{item.image}</td>
+              <td className="image-cont">
+              <img
+              className="imaqe"
+              src={"https://localhost:5001/images/brands/" + item.image}
+              alt=""
+            /></td>
               <td>
-                <a class="btn btn-warning" href="/">
+                <a className="btn btn-warning" href="/">
                   Edit
                 </a>
               </td>
               <td>
-                <Button onClick={()=> deleteBrands(item.id)(dispatch)} color="danger">
+                <Button
+                  onClick={() => deleteBrands(item.id)(dispatch)}
+                  color="danger"
+                >
                   Delete
                 </Button>
               </td>

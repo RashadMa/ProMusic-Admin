@@ -12,6 +12,10 @@ class BrandsService extends HttpClient {
   deleteBrand(id) {
     return this.delete("Brands", id);
   }
+
+  postBrand(brand) {
+    return this.post("brand")
+  }
 }
 
 export const brandsService = new BrandsService();
