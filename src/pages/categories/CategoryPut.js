@@ -1,22 +1,22 @@
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postBrand } from "../../redux/actions/brandActions";
+import { editCategory } from "../../redux/actions/categoryActions";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-function BrandPost() {
+function CategoryPut() {
+  const { state: categoryItem } = useLocation();
   const [state, setState] = useState({
-    name: "",
-    desc: "",
-    image: "",
+    name: categoryItem.name,
+    photo: categoryItem.image,
   });
   const [error, setError] = useState("");
-  const { name, desc, image } = state;
 
   const handleInputChange = (e) => {
-    let { id, value } = e.target;
-    if (id === "image") {
-      value = e.target.files[0];
+    let { id, value, files } = e.target;
+    if (id === "photo") {
+      value = files[0];
     }
     setState({ ...state, [id]: value });
   };
@@ -26,13 +26,9 @@ function BrandPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !desc || !image) {
-      setError("Please input all input field");
-    } else {
-      postBrand(state)(dispatch);
-      history.push("/brands");
-      setError("");
-    }
+    editCategory(categoryItem.id, state)(dispatch);
+    history.push("/categories");
+    setError("");
   };
   return (
     <>
@@ -41,40 +37,30 @@ function BrandPost() {
           Create
         </h3>
       </div>
-      <Button onClick={() => history.push("/brands")} color="danger mb-4">
+      <Button onClick={() => history.push("/categories")} color="danger mb-4">
         Go back
       </Button>
       {error && <h3>{error}</h3>}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Row>
-            <Col lg="3">
+            <Col lg="6">
               <Label for="name">Name</Label>
               <Input
                 onChange={handleInputChange}
                 id="name"
                 label="Name"
-                defaultValue={name}
+                defaultValue={categoryItem.name}
                 type="text"
               />
             </Col>
             <Col lg="6">
-              <Label for="desc">Description</Label>
+              <Label for="photo">Image</Label>
               <Input
-                onChange={handleInputChange}
-                id="desc"
-                label="Desc"
-                defaultValue={desc}
-                type="textarea"
-              />
-            </Col>
-            <Col lg="3">
-              <Label for="image">Image</Label>
-              <Input
-                id="image"
+                id="photo"
                 label="Image"
                 onChange={handleInputChange}
-                defaultValue={image}
+                defaultValue={categoryItem.photo}
                 type="file"
               />
             </Col>
@@ -88,4 +74,4 @@ function BrandPost() {
   );
 }
 
-export default BrandPost;
+export default CategoryPut;

@@ -16,7 +16,6 @@ function BrandPut() {
 
   const handleInputChange = (e) => {
     let { id, value, files } = e.target;
-    console.log(id);
     if (id === "photo") {
       value = files[0];
     }
@@ -67,7 +66,7 @@ function BrandPut() {
               />
             </Col>
             <Col lg="3">
-              <Label for="image">Image</Label>
+              <Label for="photo">Image</Label>
               <Input
                 id="photo"
                 label="Image"

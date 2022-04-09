@@ -1,17 +1,16 @@
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postBrand } from "../../redux/actions/brandActions";
+import { postCategory } from "../../redux/actions/categoryActions";
 import { useHistory } from "react-router-dom";
 
-function BrandPost() {
+function CategoryPost() {
   const [state, setState] = useState({
     name: "",
-    desc: "",
     image: "",
   });
   const [error, setError] = useState("");
-  const { name, desc, image } = state;
+  const { name, image } = state;
 
   const handleInputChange = (e) => {
     let { id, value } = e.target;
@@ -26,11 +25,11 @@ function BrandPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !desc || !image) {
+    if (!name || !image) {
       setError("Please input all input field");
     } else {
-      postBrand(state)(dispatch);
-      history.push("/brands");
+      postCategory(state)(dispatch);
+      history.push("/categories");
       setError("");
     }
   };
@@ -41,14 +40,14 @@ function BrandPost() {
           Create
         </h3>
       </div>
-      <Button onClick={() => history.push("/brands")} color="danger mb-4">
+      <Button onClick={() => history.push("/categories")} color="danger mb-4">
         Go back
       </Button>
       {error && <h3>{error}</h3>}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Row>
-            <Col lg="3">
+            <Col lg="6">
               <Label for="name">Name</Label>
               <Input
                 onChange={handleInputChange}
@@ -59,16 +58,6 @@ function BrandPost() {
               />
             </Col>
             <Col lg="6">
-              <Label for="desc">Description</Label>
-              <Input
-                onChange={handleInputChange}
-                id="desc"
-                label="Desc"
-                defaultValue={desc}
-                type="textarea"
-              />
-            </Col>
-            <Col lg="3">
               <Label for="image">Image</Label>
               <Input
                 id="image"
@@ -88,4 +77,4 @@ function BrandPost() {
   );
 }
 
-export default BrandPost;
+export default CategoryPost;

@@ -1,3 +1,5 @@
+import axios from "axios";
+import { categoryService } from "../../api/services/categoryService";
 import * as actionTypes from "./actionTypes";
 
 export const changeCategory = (category) => (dispatch) => {
@@ -27,4 +29,55 @@ export const getSubCategories = () => (dispatch) => {
   return fetch(url)
     .then((response) => response.json())
     .then((result) => dispatch(getSubCategoriesSuccess(result)));
+};
+
+export const deleteCategory = (id) => (dispatch) => {
+  categoryService.deleteCategory(id).then(() => {
+    getCategories()(dispatch);
+  });
+};
+
+const postCategorySuccess = () => ({
+  type: actionTypes.POST_CATEGORY_SUCCESS,
+});
+
+export const postCategory = (category) => (dispatch) => {
+  let url = "https://localhost:5001/admin/api/Categories";
+  var formData = new FormData();
+  for (let property in category) {
+    if (property === "image") {
+      formData.append("photo", category[property]);
+      break;
+    }
+    formData.append(property, category[property]);
+  }
+
+  axios
+    .post(`${url}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      dispatch(postCategorySuccess);
+      dispatch(getCategories);
+    })
+    .catch((error) => console.log(error));
+};
+
+export const editCategory = (id, category) => (dispatch) => {
+  const formData = new FormData();
+
+  for (let property in category) {
+    if (property === "photo") {
+      formData.append("photo", category[property]);
+      break;
+    }
+    formData.append(property, category[property]);
+  }
+
+  categoryService.putCategory(formData, id).then(() => {
+    getCategories()(dispatch);
+  });
 };

@@ -2,24 +2,26 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
-import { getBrands } from "../../redux/actions/brandActions";
-import { deleteBrands } from "../../redux/actions/brandActions";
+import {
+  deleteCategory,
+  getCategories,
+} from "../../redux/actions/categoryActions";
 import "../hey.css";
 
-function Brands() {
-  const { items } = useSelector((state) => state.brandListReducer);
+function Categories() {
+  const { items } = useSelector((state) => state.categoryListReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   React.useEffect(() => {
-    getBrands()(dispatch);
+    getCategories()(dispatch);
   }, [dispatch]);
 
   return (
     <>
-      <h2 className="page-header">Brands</h2>
+      <h2 className="page-header">Categories</h2>
 
       <Button
-        onClick={() => history.push("/postbrand")}
+        onClick={() => history.push("/postcategory")}
         color="primary"
         className="mb-4"
       >
@@ -30,7 +32,6 @@ function Brands() {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Desc</th>
             <th>Image</th>
             <th></th>
             <th></th>
@@ -41,17 +42,16 @@ function Brands() {
             <tr key={item.id}>
               <th scope="row">{item.id}</th>
               <td>{item.name}</td>
-              <td className="desc">{item.desc}</td>
               <td className="image-cont">
                 <img
                   className="imaqe"
-                  src={"https://localhost:5001/images/brands/" + item.image}
+                  src={"https://localhost:5001/images/categories/" + item.image}
                   alt=""
                 />
               </td>
               <td>
                 <Button
-                  onClick={() => history.push(`/putbrand/${item.id}`, item)}
+                  onClick={() => history.push(`/putcategory/${item.id}`, item)}
                   color="warning"
                 >
                   Edit
@@ -59,7 +59,7 @@ function Brands() {
               </td>
               <td>
                 <Button
-                  onClick={() => deleteBrands(item.id)(dispatch)}
+                  onClick={() => deleteCategory(item.id)(dispatch)}
                   color="danger"
                 >
                   Delete
@@ -73,4 +73,4 @@ function Brands() {
   );
 }
 
-export default Brands;
+export default Categories;
