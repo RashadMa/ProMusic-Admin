@@ -9,6 +9,10 @@ class BrandsService extends HttpClient {
     return this.get("brands");
   }
 
+  putBrand(brand, id) {
+    return this.put("brands", brand, id)
+  }
+
   deleteBrand(id) {
     return this.delete("Brands", id);
   }

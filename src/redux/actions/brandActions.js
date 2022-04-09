@@ -13,6 +13,9 @@ export function deleteBrandSuccess(id) {
 const postBrandSuccess = () => ({
   type: actionTypes.POST_BRAND_SUCCESS,
 });
+const putBrandSuccess = () => ({
+  type: actionTypes.PUT_BRAND_SUCCESS,
+});
 
 export const getBrands = () => (dispatch) => {
   let url = "https://localhost:5001/admin/api/Brands?page=1";
@@ -52,6 +55,26 @@ export const postBrand = (brand) => (dispatch) => {
       .catch((error) => console.log(error));
 };
 
+export const editBrand = (id, brand) => (dispatch) => {
+
+  const formData = new FormData();
+
+
+  for (let property in brand) {
+    if(property === "photo") {
+      formData.append("photo", brand[property])
+      break;
+    }
+    formData.append(property, brand[property])
+  }
+
+  // console.log(brand);
+
+  brandsService.putBrand(formData, id).then(()=>{
+    getBrands()(dispatch)
+  })
+}
+
 export const putBrand = (brand) => (dispatch) => {
   let url = "https://localhost:5001/admin/api/Brands";
   var formData = new FormData();
@@ -71,7 +94,7 @@ export const putBrand = (brand) => (dispatch) => {
       })
       .then((response) => {
         console.log(response);
-        dispatch(postBrandSuccess);
+        dispatch(putBrandSuccess);
         dispatch(getBrands);
       })
       .catch((error) => console.log(error));

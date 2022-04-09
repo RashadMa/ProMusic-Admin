@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
 import { getBrands } from "../../redux/actions/brandActions";
@@ -24,7 +23,7 @@ function Brands() {
       >
         Create
       </Button>
-      <Table hover dark>
+      <Table hover>
         <thead>
           <tr>
             <th>#</th>
@@ -50,7 +49,7 @@ function Brands() {
               </td>
               <td>
                 <Button
-                  onClick={() => history.push(`/putbrand/${item.id}`)}
+                  onClick={() => history.push(`/putbrand/${item.id}`, item)}
                   color="warning"
                 >
                   Edit

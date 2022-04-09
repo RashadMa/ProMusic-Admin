@@ -1,23 +1,24 @@
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postBrand } from "../../redux/actions/brandActions";
+import { editBrand } from "../../redux/actions/brandActions";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function BrandPut() {
+  const { state: brandItem } = useLocation();
   const [state, setState] = useState({
-    name: "",
-    desc: "",
-    image: "",
+    name: brandItem.name,
+    desc: brandItem.desc,
+    photo: brandItem.image,
   });
   const [error, setError] = useState("");
-  const { name, desc, image } = state;
 
   const handleInputChange = (e) => {
-    let { id, value } = e.target;
+    let { id, value, files } = e.target;
     console.log(id);
-    if (id == "image") {
-      value = e.target.files[0];
+    if (id === "photo") {
+      value = files[0];
     }
     setState({ ...state, [id]: value });
   };
@@ -27,13 +28,9 @@ function BrandPut() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !desc || !image) {
-      setError("Please input all input field");
-    } else {
-      postBrand(state)(dispatch);
-      history.push("/brands");
-      setError("");
-    }
+    editBrand(brandItem.id, state)(dispatch);
+    history.push("/brands");
+    setError("");
   };
   return (
     <>
@@ -55,7 +52,7 @@ function BrandPut() {
                 onChange={handleInputChange}
                 id="name"
                 label="Name"
-                defaultValue={name}
+                defaultValue={brandItem.name}
                 type="text"
               />
             </Col>
@@ -65,17 +62,17 @@ function BrandPut() {
                 onChange={handleInputChange}
                 id="desc"
                 label="Desc"
-                defaultValue={desc}
+                defaultValue={brandItem.desc}
                 type="textarea"
               />
             </Col>
             <Col lg="3">
               <Label for="image">Image</Label>
               <Input
-                id="image"
+                id="photo"
                 label="Image"
                 onChange={handleInputChange}
-                defaultValue={image}
+                defaultValue={brandItem.photo}
                 type="file"
               />
             </Col>
