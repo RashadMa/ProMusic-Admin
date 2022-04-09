@@ -85,7 +85,7 @@ const Sidebar = (props) => {
           </div>
         </div>
       </Link>
-      <Link  className="none" to={"/"}>
+      <Link  className="none" to={"/info"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
