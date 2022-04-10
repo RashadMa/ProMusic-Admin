@@ -27,7 +27,7 @@ function Categories() {
       >
         Create
       </Button>
-      <Table hover>
+      <Table hover dark>
         <thead>
           <tr>
             <th>#</th>

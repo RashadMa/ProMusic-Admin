@@ -1,25 +1,23 @@
+import { Stack, Pagination } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
-import { getBrands } from "../../redux/actions/brandActions";
-import { deleteBrands } from "../../redux/actions/brandActions";
+import { deleteSlider, getSliders } from "../../redux/actions/sliderActions";
 import "../hey.css";
 
-function Brands() {
-  const { items } = useSelector((state) => state.brandListReducer);
+function Sliders() {
+  const { items } = useSelector((state) => state.sliderListReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   React.useEffect(() => {
-    getBrands()(dispatch);
+    getSliders()(dispatch);
   }, [dispatch]);
-
   return (
     <>
-      <h2 className="page-header">Brands</h2>
-
+      <h2 className="page-header">Sliders</h2>
       <Button
-        onClick={() => history.push("/postbrand")}
+        onClick={() => history.push("/postslider")}
         color="primary"
         className="mb-4"
       >
@@ -29,8 +27,10 @@ function Brands() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Desc</th>
+            <th>Title</th>
+            <th>Button Text</th>
+            <th>Button Url</th>
+            <th>Order</th>
             <th>Image</th>
             <th></th>
             <th></th>
@@ -40,18 +40,20 @@ function Brands() {
           {items?.map((item) => (
             <tr key={item.id}>
               <th scope="row">{item.id}</th>
-              <td>{item.name}</td>
-              <td className="desc">{item.desc}</td>
+              <td>{item.title}</td>
+              <td>{item.btnText}</td>
+              <td>{item.btnUrl}</td>
+              <td>{item.order}</td>
               <td className="image-cont">
                 <img
                   className="imaqe"
-                  src={"https://localhost:5001/images/brands/" + item.image}
+                  src={"https://localhost:5001/images/slider/" + item.image}
                   alt=""
                 />
               </td>
               <td>
                 <Button
-                  onClick={() => history.push(`/putbrand/${item.id}`, item)}
+                  onClick={() => history.push(`/putslider/${item.id}`, item)}
                   color="warning"
                 >
                   Edit
@@ -59,7 +61,7 @@ function Brands() {
               </td>
               <td>
                 <Button
-                  onClick={() => deleteBrands(item.id)(dispatch)}
+                  onClick={() => deleteSlider(item.id)(dispatch)}
                   color="danger"
                 >
                   Delete
@@ -69,8 +71,11 @@ function Brands() {
           ))}
         </tbody>
       </Table>
+      <Stack spacing={2}>
+        <Pagination count={10} shape="rounded" />
+      </Stack>
     </>
   );
 }
 
-export default Brands;
+export default Sliders;

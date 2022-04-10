@@ -23,7 +23,7 @@ function Info() {
       >
         Create
       </Button>
-      <Table hover>
+      <Table hover dark>
         <thead>
           <tr>
             <th>#</th>

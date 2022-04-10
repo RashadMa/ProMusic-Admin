@@ -81,3 +81,33 @@ export const editCategory = (id, category) => (dispatch) => {
     getCategories()(dispatch);
   });
 };
+
+function postSubCategoriesSuccess(categories) {
+  return { type: actionTypes.POST_SUB_CATEGORY_SUCCESS, payload: categories };
+}
+
+export const postSubCategory = (subCategory) => (dispatch) => {
+  let url = "https://localhost:5001/admin/api/subcategories";
+  var formData = new FormData();
+  for (let property in subCategory) {
+    if (property === "image") {
+      console.log(property);
+      formData.append("photo", subCategory[property]);
+      break;
+    }
+    formData.append(property, subCategory[property]);
+  }
+
+  axios
+    .post(`${url}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      dispatch(postSubCategoriesSuccess);
+      dispatch(getSubCategories);
+    })
+    .catch((error) => console.log(error));
+};

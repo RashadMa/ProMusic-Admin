@@ -91,7 +91,7 @@ input:focus {
 .card {
     padding: 30px;
     margin-bottom: 30px;
-    background-color: var(--main-bg);
+    background-color: #2d2d2d !important;
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
 }
@@ -108,7 +108,7 @@ input:focus {
     text-transform: capitalize;
 }
 
-.card > div ~ div {
+.card>div~div {
     margin-top: 30px;
 }
 
@@ -118,7 +118,7 @@ input:focus {
 }
 
 .light-background {
-    background-color: var(--main-bg-light);
+    /* background-color: var(--main-bg-light); */
     color: #000;
 }
 

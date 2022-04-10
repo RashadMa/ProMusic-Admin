@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "reactstrap";
 const Products = () => {
   return (
-    <Table hover>
+    <Table dark hover>
         <thead>
           <tr>
             <th>#</th>

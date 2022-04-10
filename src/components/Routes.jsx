@@ -13,6 +13,13 @@ import CategoryPut from "../pages/categories/CategoryPut";
 import Info from "../pages/info/Info";
 import InfoPost from "../pages/info/InfoPost";
 import InfoPut from "../pages/info/InfoPut";
+import Settings from "../pages/settings/Settings";
+import SettingPut from "../pages/settings/SettingPut";
+import SubCategories from "../pages/subCategories/SubCategories";
+import SubCategoryPost from "../pages/subCategories/SubCategoryPost";
+import Sliders from "../pages/sliders/Sliders";
+import SliderPost from "../pages/sliders/SliderPost";
+import SliderPut from "../pages/sliders/SliderPut";
 
 const Routes = () => {
   return (
@@ -28,6 +35,14 @@ const Routes = () => {
       <Route exact path="/info" component={Info} />
       <Route exact path="/postinfo" component={InfoPost} />
       <Route exact path="/putinfo/:id" component={InfoPut} />
+      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/putsettings/:id" component={SettingPut} />
+      <Route exact path="/subcategories" component={SubCategories} />
+      <Route exact path="/postsubcategory" component={SubCategoryPost} />
+      <Route exact path="/putsubcategory/:id" component={SubCategoryPost} />
+      <Route exact path="/sliders" component={Sliders} />
+      <Route exact path="/postslider" component={SliderPost} />
+      <Route exact path="/putslider/:id" component={SliderPut} />
     </Switch>
   );
 };

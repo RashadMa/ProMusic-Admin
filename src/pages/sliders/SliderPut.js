@@ -1,16 +1,18 @@
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editInfo } from "../../redux/actions/informationActions";
+import { editSlider } from "../../redux/actions/sliderActions";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-function InfoPut() {
-  const { state: infoItem } = useLocation();
+function SliderPut() {
+  const { state: sliderItem } = useLocation();
   const [state, setState] = useState({
-    title: infoItem.title,
-    desc: infoItem.desc,
-    photo: infoItem.image,
+    btnText: sliderItem.btnText,
+    btnUrl: sliderItem.btnUrl,
+    order: sliderItem.otder,
+    title: sliderItem.title,
+    photo: sliderItem.image,
   });
   const [error, setError] = useState("");
 
@@ -27,8 +29,8 @@ function InfoPut() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editInfo(infoItem.id, state)(dispatch);
-    history.push("/info");
+    editSlider(sliderItem.id, state)(dispatch);
+    history.push("/sliders");
     setError("");
   };
   return (
@@ -38,31 +40,53 @@ function InfoPut() {
           Edit
         </h3>
       </div>
-      <Button onClick={() => history.push("/info")} color="danger mb-4">
+      <Button onClick={() => history.push("/sliders")} color="danger mb-4">
         Go back
       </Button>
       {error && <h3>{error}</h3>}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Row>
-            <Col lg="3">
+            <Col lg="6">
               <Label for="title">Title</Label>
               <Input
                 onChange={handleInputChange}
                 id="title"
                 label="title"
-                defaultValue={infoItem.title}
+                defaultValue={sliderItem.title}
                 type="text"
               />
             </Col>
             <Col lg="6">
-              <Label for="desc">Desc</Label>
+              <Label for="btnText">Button Text</Label>
               <Input
-                id="desc"
-                label="Desc"
                 onChange={handleInputChange}
-                defaultValue={infoItem.desc}
-                type="textarea"
+                id="btnText"
+                label="btnText"
+                defaultValue={sliderItem.btnText}
+                type="text"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg="6">
+              <Label for="btnUrl">Button Url</Label>
+              <Input
+                id="btnUrl"
+                label="btnUrl"
+                onChange={handleInputChange}
+                defaultValue={sliderItem.btnUrl}
+                type="text"
+              />
+            </Col>
+            <Col lg="3">
+              <Label for="order">Order</Label>
+              <Input
+                id="order"
+                label="order"
+                onChange={handleInputChange}
+                defaultValue={sliderItem.order}
+                type="number"
               />
             </Col>
             <Col lg="3">
@@ -71,7 +95,7 @@ function InfoPut() {
                 id="photo"
                 label="photo"
                 onChange={handleInputChange}
-                defaultValue={infoItem.photo}
+                defaultValue={sliderItem.photo}
                 type="file"
               />
             </Col>
@@ -85,4 +109,4 @@ function InfoPut() {
   );
 }
 
-export default InfoPut;
+export default SliderPut;

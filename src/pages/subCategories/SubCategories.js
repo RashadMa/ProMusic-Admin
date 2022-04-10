@@ -1,36 +1,34 @@
+import { Stack, Pagination } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
-import { getBrands } from "../../redux/actions/brandActions";
-import { deleteBrands } from "../../redux/actions/brandActions";
+import { getSubCategories } from "../../redux/actions/categoryActions";
 import "../hey.css";
 
-function Brands() {
-  const { items } = useSelector((state) => state.brandListReducer);
+function SubCategories() {
+  const { items } = useSelector((state) => state.subCategoryListReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   React.useEffect(() => {
-    getBrands()(dispatch);
+    getSubCategories()(dispatch);
   }, [dispatch]);
-
   return (
     <>
-      <h2 className="page-header">Brands</h2>
-
+      <h2 className="page-header">Sub Categories</h2>
       <Button
-        onClick={() => history.push("/postbrand")}
+        onClick={() => history.push("/postsubcategory")}
         color="primary"
         className="mb-4"
       >
         Create
       </Button>
-      <Table hover dark>
+      <Table dark hover>
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Desc</th>
+            <th>Category to which it belongs</th>
             <th>Image</th>
             <th></th>
             <th></th>
@@ -41,27 +39,28 @@ function Brands() {
             <tr key={item.id}>
               <th scope="row">{item.id}</th>
               <td>{item.name}</td>
-              <td className="desc">{item.desc}</td>
+              <td>{item.category.name}</td>
               <td className="image-cont">
                 <img
                   className="imaqe"
-                  src={"https://localhost:5001/images/brands/" + item.image}
+                  src={
+                    "https://localhost:5001/images/subcategories/" + item.image
+                  }
                   alt=""
                 />
               </td>
               <td>
                 <Button
-                  onClick={() => history.push(`/putbrand/${item.id}`, item)}
+                  onClick={() =>
+                    history.push(`/putsubcategory/${item.id}`, item)
+                  }
                   color="warning"
                 >
                   Edit
                 </Button>
               </td>
               <td>
-                <Button
-                  onClick={() => deleteBrands(item.id)(dispatch)}
-                  color="danger"
-                >
+                <Button onClick={() => item.id(dispatch)} color="danger">
                   Delete
                 </Button>
               </td>
@@ -69,8 +68,11 @@ function Brands() {
           ))}
         </tbody>
       </Table>
+      <Stack spacing={2}>
+        <Pagination count={10} shape="rounded" />
+      </Stack>
     </>
   );
 }
 
-export default Brands;
+export default SubCategories;

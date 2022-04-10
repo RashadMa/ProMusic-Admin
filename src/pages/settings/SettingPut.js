@@ -1,15 +1,16 @@
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editCategory } from "../../redux/actions/categoryActions";
+import { editSetting } from "../../redux/actions/settingActions";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-function CategoryPut() {
-  const { state: categoryItem } = useLocation();
+function SettingPut() {
+  const { state: settingItem } = useLocation();
   const [state, setState] = useState({
-    name: categoryItem.name,
-    photo: categoryItem.image,
+    key: settingItem.key,
+    value: settingItem.value,
+    // value: settingItem.image,
   });
   const [error, setError] = useState("");
 
@@ -26,8 +27,8 @@ function CategoryPut() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editCategory(categoryItem.id, state)(dispatch);
-    history.push("/categories");
+    editSetting(settingItem.id, state)(dispatch);
+    history.push("/settings");
     setError("");
   };
   return (
@@ -37,30 +38,40 @@ function CategoryPut() {
           Edit
         </h3>
       </div>
-      <Button onClick={() => history.push("/categories")} color="danger mb-4">
+      <Button onClick={() => history.push("/settings")} color="danger mb-4">
         Go back
       </Button>
       {error && <h3>{error}</h3>}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Row>
-            <Col lg="6">
-              <Label for="name">Name</Label>
+            <Col lg="3">
+              <Label for="key">Key</Label>
               <Input
                 onChange={handleInputChange}
-                id="name"
-                label="Name"
-                defaultValue={categoryItem.name}
+                id="key"
+                label="Key"
+                defaultValue={settingItem.key}
                 type="text"
               />
             </Col>
             <Col lg="6">
+              <Label for="value">Value</Label>
+              <Input
+                id="value"
+                label="Value"
+                onChange={handleInputChange}
+                defaultValue={settingItem.value}
+                type="text"
+              />
+            </Col>
+            <Col lg="3">
               <Label for="photo">Image</Label>
               <Input
                 id="photo"
-                label="Image"
+                label="photo"
                 onChange={handleInputChange}
-                defaultValue={categoryItem.photo}
+                defaultValue={settingItem.photo}
                 type="file"
               />
             </Col>
@@ -74,4 +85,4 @@ function CategoryPut() {
   );
 }
 
-export default CategoryPut;
+export default SettingPut;
