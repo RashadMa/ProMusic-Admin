@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { sliderService } from "../../api/services/sliderService";
 import * as actionTypes from "./actionTypes";
 
@@ -7,8 +8,12 @@ export function getSlidersSuccess(slider) {
 }
 
 export const getSliders = () => (dispatch) => {
-  let url = "https://localhost:5001/member/api/Sliders?page=1";
-  return fetch(url)
+  let url = "https://localhost:5001/admin/api/Sliders?page=1";
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
     .then((response) => response.json())
     .then((result) => dispatch(getSlidersSuccess(result)));
 };
@@ -32,6 +37,8 @@ export const postSlider = (slider) => (dispatch) => {
     .post(`${url}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((response) => {
@@ -59,7 +66,20 @@ export const editSlider = (id, slider) => (dispatch) => {
 };
 
 export const deleteSlider = (id) => (dispatch) => {
-  sliderService.deleteSlider(id).then(() => {
-    getSliders()(dispatch);
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      sliderService.deleteSlider(id).then(() => {
+        getSliders()(dispatch);
+      });
+    }
   });
 };

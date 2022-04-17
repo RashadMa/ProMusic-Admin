@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { infoService } from "../../api/services/infoService";
 import * as actionTypes from "./actionTypes";
 
@@ -7,15 +8,32 @@ export function getInformationSuccess(information) {
 }
 
 export const getInformation = () => (dispatch) => {
-  let url = "https://localhost:5001/member/api/Informations?page=1";
-  return fetch(url)
+  let url = "https://localhost:5001/admin/api/Informations?page=1";
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
     .then((response) => response.json())
     .then((result) => dispatch(getInformationSuccess(result)));
 };
 
 export const deleteInfo = (id) => (dispatch) => {
-  infoService.deleteInfo(id).then(() => {
-    getInformation()(dispatch);
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      infoService.deleteInfo(id).then(() => {
+        getInformation()(dispatch);
+      });
+    }
   });
 };
 
@@ -27,10 +45,6 @@ export const postInfo = (info) => (dispatch) => {
   let url = "https://localhost:5001/admin/api/informations";
   var formData = new FormData();
   for (let property in info) {
-    if (property === "image") {
-      formData.append("photo", info[property]);
-      break;
-    }
     formData.append(property, info[property]);
   }
 
@@ -38,12 +52,15 @@ export const postInfo = (info) => (dispatch) => {
     .post(`${url}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-    .then((response) => {
-      console.log(response);
-      dispatch(postInfoSuccess);
-      dispatch(getInformation);
+    .then(({ data }) => {
+      dispatch({
+        type: actionTypes.POST_INFO_SUCCESS,
+        payload: data,
+      });
+      getInformation()(dispatch);
     })
     .catch((error) => console.log(error));
 };

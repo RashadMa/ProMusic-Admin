@@ -8,14 +8,14 @@ function InfoPost() {
   const [state, setState] = useState({
     title: "",
     desc: "",
-    image: "",
+    photo: "",
   });
   const [error, setError] = useState("");
-  const { title, desc, image } = state;
+  const { title, desc, photo } = state;
 
   const handleInputChange = (e) => {
     let { id, value } = e.target;
-    if (id === "image") {
+    if (id === "photo") {
       value = e.target.files[0];
     }
     setState({ ...state, [id]: value });
@@ -26,7 +26,7 @@ function InfoPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !desc || !image) {
+    if (!title || !desc || !photo) {
       setError("Please input all input field");
     } else {
       postInfo(state)(dispatch);
@@ -69,12 +69,12 @@ function InfoPost() {
               />
             </Col>
             <Col lg="3">
-              <Label for="image">Image</Label>
+              <Label for="photo">Image</Label>
               <Input
-                id="image"
-                label="Image"
+                id="photo"
+                label="photo"
                 onChange={handleInputChange}
-                defaultValue={image}
+                defaultValue={photo}
                 type="file"
               />
             </Col>

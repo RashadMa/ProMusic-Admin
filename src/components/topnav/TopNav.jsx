@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./topnav.css";
 
@@ -32,16 +32,25 @@ const renderUserToggle = (user) => (
   </div>
 );
 
-const renderUserMenu = (item, index) => (
-  <Link to="/" key={index}>
-    <div className="notification-item">
-      <i className={item.icon}></i>
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
+// const remove = () => {
+//   localStorage.removeItem("token");
+// };
 
 const Topnav = () => {
+  // const [removeItem, setRemoveItem] = useState();
+
+  // const remove = () => {
+  //   // localStorage.removeItem(setRemoveItem("token"));
+  //   console.log(setRemoveItem());
+  // };
+
+  const renderUserMenu = () => (
+    <button onClick={"remove"}>
+      <div className="notification-item">
+        <span>Logout</span>
+      </div>
+    </button>
+  );
   return (
     <div className="topnav">
       <div className="topnav__search">

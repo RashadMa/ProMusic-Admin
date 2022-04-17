@@ -7,14 +7,14 @@ import { useHistory } from "react-router-dom";
 function CategoryPost() {
   const [state, setState] = useState({
     name: "",
-    image: "",
+    photo: "",
   });
   const [error, setError] = useState("");
-  const { name, image } = state;
+  const { name, photo } = state;
 
   const handleInputChange = (e) => {
     let { id, value } = e.target;
-    if (id === "image") {
+    if (id === "photo") {
       value = e.target.files[0];
     }
     setState({ ...state, [id]: value });
@@ -25,7 +25,7 @@ function CategoryPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !image) {
+    if (!name || !photo) {
       setError("Please input all input field");
     } else {
       postCategory(state)(dispatch);
@@ -58,12 +58,12 @@ function CategoryPost() {
               />
             </Col>
             <Col lg="6">
-              <Label for="image">Image</Label>
+              <Label for="photo">Image</Label>
               <Input
-                id="image"
-                label="Image"
+                id="photo"
+                label="photo"
                 onChange={handleInputChange}
-                defaultValue={image}
+                defaultValue={photo}
                 type="file"
               />
             </Col>

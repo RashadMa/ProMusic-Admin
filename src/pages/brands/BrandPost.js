@@ -8,14 +8,14 @@ function BrandPost() {
   const [state, setState] = useState({
     name: "",
     desc: "",
-    image: "",
+    photo: "",
   });
   const [error, setError] = useState("");
-  const { name, desc, image } = state;
+  const { name, desc, photo } = state;
 
   const handleInputChange = (e) => {
     let { id, value } = e.target;
-    if (id === "image") {
+    if (id === "photo") {
       value = e.target.files[0];
     }
     setState({ ...state, [id]: value });
@@ -26,7 +26,7 @@ function BrandPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !desc || !image) {
+    if (!name || !desc || !photo) {
       setError("Please input all input field");
     } else {
       postBrand(state)(dispatch);
@@ -69,12 +69,12 @@ function BrandPost() {
               />
             </Col>
             <Col lg="3">
-              <Label for="image">Image</Label>
+              <Label for="photo">Image</Label>
               <Input
-                id="image"
-                label="Image"
+                id="photo"
+                label="photo"
                 onChange={handleInputChange}
-                defaultValue={image}
+                defaultValue={photo}
                 type="file"
               />
             </Col>

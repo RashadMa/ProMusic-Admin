@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, Table } from "reactstrap";
 import { getSubCategories } from "../../redux/actions/categoryActions";
 import "../hey.css";
+import { deleteSubCategory } from "../../redux/actions/categoryActions";
 
 function SubCategories() {
   const { items } = useSelector((state) => state.subCategoryListReducer);
@@ -60,7 +61,10 @@ function SubCategories() {
                 </Button>
               </td>
               <td>
-                <Button onClick={() => item.id(dispatch)} color="danger">
+                <Button
+                  onClick={() => deleteSubCategory(item.id)(dispatch)}
+                  color="danger"
+                >
                   Delete
                 </Button>
               </td>

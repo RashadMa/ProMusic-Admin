@@ -7,7 +7,7 @@ import "./sidebar.css";
 const Sidebar = (props) => {
   return (
     <div className="sidebar">
-      <Link to={"/"} className="sidebar__logo">
+      <Link to={"/dashboard"} className="sidebar__logo">
         <svg
           width="130"
           height="18"
@@ -53,7 +53,7 @@ const Sidebar = (props) => {
           />
         </svg>
       </Link>
-      <Link className="none" to={"/"}>
+      <Link className="none" to={"/dashboard"}>
         <div className="sidebar__item">
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
@@ -114,6 +114,14 @@ const Sidebar = (props) => {
           <div className="sidebar__item-inner ">
             <i className="bx bx-category-alt"></i>
             <span>Sub categories</span>
+          </div>
+        </div>
+      </Link>
+      <Link className="none" to={"/orders"}>
+        <div className="sidebar__item">
+          <div className="sidebar__item-inner ">
+            <i className="bx bx-category-alt"></i>
+            <span>Orders</span>
           </div>
         </div>
       </Link>

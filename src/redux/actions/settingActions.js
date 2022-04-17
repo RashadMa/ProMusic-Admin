@@ -6,8 +6,12 @@ export function getSettingsSuccess(setting) {
 }
 
 export const getSettings = () => (dispatch) => {
-  let url = "https://localhost:5001/member/api/Settings?page=1";
-  return fetch(url)
+  let url = "https://localhost:5001/admin/api/Settings?page=1";
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
     .then((response) => response.json())
     .then((result) => dispatch(getSettingsSuccess(result)));
 };
